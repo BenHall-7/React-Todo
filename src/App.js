@@ -35,7 +35,7 @@ class App extends React.Component {
   handleClearCompl = event => {
     event.preventDefault();
     this.setState({
-      todo: this.state.todo.map(todo => ({...todo, completed: false}))
+      todo: this.state.todo.filter(item => !item.completed)
     })
   }
 
