@@ -5,10 +5,13 @@ import Todo from './Todo';
 
 class TodoList extends React.Component {
     render() {
+        let todo = this.props.todo;
         return (
-            <ul>
-                
-            </ul>
+            <div>
+                {todo.map(
+                    item => <Todo key={item.id} todoName={item.todoName} completed={item.completed}/>
+                )}
+            </div>
         )
     }
 }
