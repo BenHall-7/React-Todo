@@ -5,11 +5,16 @@ import Todo from './Todo';
 
 class TodoList extends React.Component {
     render() {
-        let todo = this.props.todo;
+        let {todo, handleSetCompl} = this.props;
         return (
             <div>
                 {todo.map(
-                    item => <Todo key={item.id} todoName={item.todoName} completed={item.completed}/>
+                    item => <Todo
+                        key={item.id}
+                        todoName={item.todoName}
+                        completed={item.completed}
+                        handleSetCompl={event => handleSetCompl(event, item.id)}
+                    />
                 )}
             </div>
         )

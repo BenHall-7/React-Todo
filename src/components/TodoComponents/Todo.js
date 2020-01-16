@@ -2,13 +2,15 @@ import React from 'react';
 
 class Todo extends React.Component {
     render() {
-        let {todoName, completed} = this.props;
+        let {todoName, completed, handleSetCompl} = this.props;
         return (
             <p style={{
-                textDecoration: completed
+                    textDecoration: completed
                     ? "line-through"
                     : ""
-            }}>{todoName}</p>
+                }}
+                onClick={handleSetCompl}
+            >{todoName}</p>
         )
     }
 }

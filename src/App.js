@@ -20,6 +20,18 @@ class App extends React.Component {
     });
   }
 
+  handleSetCompl = (event, id) => {
+    event.preventDefault();
+    this.setState({
+      todo: this.state.todo.map(item => {
+        if (item.id === id) {
+          item.completed = true;
+        }
+        return item;
+      })
+    })
+  }
+
   handleClearCompl = event => {
     event.preventDefault();
     this.setState({
@@ -47,7 +59,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoList todo={this.state.todo}/>
+        <TodoList
+          todo={this.state.todo}
+          handleSetCompl={this.handleSetCompl}
+        />
         <TodoForm
           todoInput={this.state.todoInput}
           handleTextChange={this.handleTextChange}
