@@ -8,10 +8,20 @@ class App extends React.Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super();
+
+    if (localStorage.getItem("todo") === null) {
+      localStorage.setItem("todo", "[]");
+    }
+
     this.state = {
-      todo: [],
+      todo: JSON.parse(localStorage.getItem("todo")),
       todoInput: ""
     };
+  }
+
+  setStateTodo(todo) {
+    this.setState({todo: todo});
+    localStorage.setItem("todo", JSON.stringify(todo));
   }
   
   handleTextChange = event => {
@@ -22,21 +32,17 @@ class App extends React.Component {
 
   handleSetCompl = (event, id) => {
     event.preventDefault();
-    this.setState({
-      todo: this.state.todo.map(item => {
-        if (item.id === id) {
-          item.completed = true;
-        }
-        return item;
-      })
-    })
+    this.setStateTodo(this.state.todo.map(item => {
+      if (item.id === id) {
+        item.completed = true;
+      }
+      return item;
+    }))
   }
 
   handleClearCompl = event => {
     event.preventDefault();
-    this.setState({
-      todo: this.state.todo.filter(item => !item.completed)
-    })
+    this.setStateTodo(this.state.todo.filter(item => !item.completed));
   }
 
   handleAddTodo = event => {
@@ -49,11 +55,11 @@ class App extends React.Component {
   }
 
   addTodo(todoName) {
-    this.setState({todo: [...this.state.todo, {
+    this.setStateTodo([...this.state.todo, {
       todoName: todoName,
       id: Date.now(),
       completed: false,
-    }]})
+    }])
   }
 
   render() {
